@@ -22,27 +22,18 @@ The planned runtime environment is:
 - Operating System: DietPi
 - Network Mode for Demo: Link-local networking only
 
-No additional scripting engines or web frameworks will be used.
-
 ## Concept
 
 The first version of the application will manage the following information:
 
 - Student name
 - Student ID
-- Task title
+- Task name
 - Task description
 - Task category
 - Task status
-- Task due date
-- Created time
-- Updated time
-
-The initial idea is simple, but the database will still be designed properly using relational modeling and normalization.
 
 ## Database Entities
-
-The planned database entities are:
 
 ### Student
 
@@ -52,7 +43,6 @@ Example attributes:
 
 - student_id
 - student_name
-- email
 
 ### Task
 
@@ -64,11 +54,8 @@ Example attributes:
 - student_id
 - category_id
 - status_id
-- task_title
+- task_name
 - task_description
-- due_date
-- created_at
-- updated_at
 
 ### Category
 
