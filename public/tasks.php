@@ -1,73 +1,79 @@
 <?php
-$pageTitle = "Tasks - Student Task Manager";
+require_once __DIR__ . '/../app/layout.php';
 
+$pageTitle = 'Tasks - Student Task Manager';
+
+// test data
 $tasks = [
     [
-        "student_id" => "0",
-        "student_name" => "stu0",
-        "title" => "test0",
-        "category" => "cat0",
-        "status" => "In Progress"
+        'task_id' => 1,
+        'student_id' => 'S001',
+        'student_name' => 'Student One',
+        'task_name' => 'Database design draft',
+        'task_description' => 'Prepare the first draft of the ERD and relational model.',
+        'category' => 'Project',
+        'status' => 'In Progress',
     ],
     [
-        "student_id" => "1",
-        "student_name" => "stu1",
-        "title" => "test1",
-        "category" => "cat1",
-        "status" => "Not Started"
-    ]
+        'task_id' => 2,
+        'student_id' => 'S002',
+        'student_name' => 'Student Two',
+        'task_name' => 'Installation guide',
+        'task_description' => 'Write setup instructions for DietPi, Lighttpd, PHP, and MariaDB.',
+        'category' => 'Report',
+        'status' => 'Not Started',
+    ],
 ];
+
+render_header($pageTitle, 'tasks');
 ?>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title><?= htmlspecialchars($pageTitle) ?></title>
-    <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-    <header>
-        <h1>Task List</h1>
-        <p>temporary placeholder</p>
-    </header>
 
-    <nav>
-        <a href="index.php">Home</a>
-        <a href="tasks.php">Tasks</a>
-        <a href="members.php">Members</a>
-    </nav>
+<section class="card">
+    <h2>Current Tasks</h2>
 
-    <main>
-        <section class="card">
-            <h2>Current Tasks</h2>
+    <p>
+        This page displays student study tasks. The current data is temporary and
+        will later be loaded from the MariaDB database.
+    </p>
 
-            <table>
-                <thead>
+    <p>
+        <a class="button-link" href="task_create.php">Add New Task</a>
+    </p>
+
+    <?php if (empty($tasks)): ?>
+        <p class="notice">No tasks found.</p>
+    <?php else: ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Task Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($tasks as $task): ?>
                     <tr>
-                        <th>Student ID</th>
-                        <th>Student Name</th>
-                        <th>Task</th>
-                        <th>Category</th>
-                        <th>Status</th>
+                        <td><?= e($task['student_id']) ?></td>
+                        <td><?= e($task['student_name']) ?></td>
+                        <td><?= e($task['task_name']) ?></td>
+                        <td><?= e($task['task_description']) ?></td>
+                        <td><?= e($task['category']) ?></td>
+                        <td><?= e($task['status']) ?></td>
+                        <td class="actions">
+                            <a href="task_edit.php?id=<?= e($task['task_id']) ?>">Edit</a>
+                            <a href="task_delete.php?id=<?= e($task['task_id']) ?>">Delete</a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($tasks as $task): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($task["student_id"]) ?></td>
-                            <td><?= htmlspecialchars($task["student_name"]) ?></td>
-                            <td><?= htmlspecialchars($task["title"]) ?></td>
-                            <td><?= htmlspecialchars($task["category"]) ?></td>
-                            <td><?= htmlspecialchars($task["status"]) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </section>
-    </main>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+</section>
 
-    <footer>
-        <p>&copy; Group HuM</p>
-    </footer>
-</body>
-</html>
+<?php
+render_footer();
