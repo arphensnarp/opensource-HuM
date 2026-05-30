@@ -1,7 +1,9 @@
 <?php
 require_once __DIR__ . '/config.php';
 
-// Create and return a PDO db connection
+/**
+ * Create and return a PDO database connection.
+ */
 function get_db_connection()
 {
     $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
