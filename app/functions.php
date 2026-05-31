@@ -200,7 +200,7 @@ function validate_task_input($data)
 
     if (trim($data['task_name']) === '') {
         $errors[] = 'Task name is required.';
-    } elseif (mb_strlen(trim($data['task_name'])) > 150) {
+    } elseif (strlen(trim($data['task_name'])) > 150) {
         $errors[] = 'Task name must be 150 characters or fewer.';
     }
 

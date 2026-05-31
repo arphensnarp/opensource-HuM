@@ -113,3 +113,66 @@ th {
     background: #243447;
     color: white;
 }
+
+.success {
+    background: #e2f5e9;
+    border: 1px solid #8ccf9f;
+    color: #1f6b35;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+.error-box {
+    background: #fde8e8;
+    border: 1px solid #e09a9a;
+    color: #7a1f1f;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.form-actions,
+.delete-form {
+    margin-top: 16px;
+}
+
+.form-actions button,
+.delete-form button {
+    background: #243447;
+    color: white;
+    border: none;
+    padding: 9px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-actions button:hover,
+.delete-form button:hover {
+    background: #3d5a80;
+}
+
+.form-actions a,
+.delete-form a {
+    margin-left: 12px;
+}
