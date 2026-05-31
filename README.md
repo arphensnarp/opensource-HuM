@@ -6,12 +6,9 @@ This project was built as a class demonstration project for Raspberry Pi Zero 2 
 
 ## Features
 
-- View all student tasks
-- Add a new task
-- Edit an existing task
-- Delete a task
-- View group members
-- Store task data in MariaDB
+The target application is a **student task management system**.
+
+The system allows students to manage simple academic tasks such as assignments, reports, exercises, preparation work, and project tasks. Each task belongs to a student, has a category, and has a status that shows the current progress of the task.
 
 ## Runtime Environment
 
@@ -79,5 +76,13 @@ categories(category_id, category_name)
 
 statuses(status_id, status_name)
 
-tasks(task_id, student_id, category_id, status_id, task_name, task_description, created_at, updated_at)
-```
+| Page | Purpose |
+|---|---|
+| `index.php` | Home page and task overview |
+| `tasks.php` | Display all tasks |
+| `task_create.php` | Add a new task |
+| `task_edit.php` | Edit an existing task |
+| `task_delete.php` | Delete a task |
+| `members.php` | Show group member introductions |
+
+The final page list may be adjusted during implementation.
