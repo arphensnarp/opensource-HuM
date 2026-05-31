@@ -36,7 +36,7 @@ function render_footer()
     </main>
 
     <footer class="site-footer">
-        <p>&copy; Group HuM - Student Task Manager</p>
+        <p> </p>
     </footer>
 </body>
 </html>

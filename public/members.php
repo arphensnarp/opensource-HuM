@@ -1,26 +1,11 @@
 <?php
+require_once __DIR__ . '/../app/db.php';
 require_once __DIR__ . '/../app/layout.php';
 
 $pageTitle = 'Members - Student Task Manager';
 
-// test data
-$members = [
-    [
-        'student_id' => 'S001',
-        'name' => 'a',
-        'role' => 'Database design and SQL scripts',
-    ],
-    [
-        'student_id' => 'S002',
-        'name' => 'b',
-        'role' => 'PHP task pages and CRUD logic',
-    ],
-    [
-        'student_id' => 'S003',
-        'name' => 'c',
-        'role' => 'Interface styling and documentation',
-    ],
-];
+$pdo = get_db_connection();
+$members = get_all_students($pdo);
 
 render_header($pageTitle, 'members');
 ?>
@@ -29,28 +14,29 @@ render_header($pageTitle, 'members');
     <h2>Group HuM Members</h2>
 
     <p>
-        This page introduces the members of Group HuM and their responsibilities
-        in the Student Task Manager project.
+        This page introduces the members stored in the student table.
     </p>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Student ID</th>
-                <th>Name</th>
-                <th>Responsibility</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($members as $member): ?>
+    <?php if (empty($members)): ?>
+        <p class="notice">No members found.</p>
+    <?php else: ?>
+        <table>
+            <thead>
                 <tr>
-                    <td><?= e($member['student_id']) ?></td>
-                    <td><?= e($member['name']) ?></td>
-                    <td><?= e($member['role']) ?></td>
+                    <th>Student ID</th>
+                    <th>Name</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($members as $member): ?>
+                    <tr>
+                        <td><?= e($member['student_id']) ?></td>
+                        <td><?= e($member['student_name']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
 </section>
 
 <?php
