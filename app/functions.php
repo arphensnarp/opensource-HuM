@@ -49,6 +49,8 @@ function get_int_param($name)
 
 /**
  * Fetch all students.
+ *
+ * These are task-related students, not Group HuM project members.
  */
 function get_all_students($pdo)
 {
@@ -60,6 +62,31 @@ function get_all_students($pdo)
 
     $statement = $pdo->query($sql);
     return $statement->fetchAll();
+}
+
+/**
+ * Insert a student if new, or update the student name if the student ID already exists.
+ */
+function save_student($pdo, $studentId, $studentName)
+{
+    $sql = "
+        INSERT INTO students (
+            student_id,
+            student_name
+        ) VALUES (
+            :student_id,
+            :student_name
+        )
+        ON DUPLICATE KEY UPDATE
+            student_name = VALUES(student_name)
+    ";
+
+    $statement = $pdo->prepare($sql);
+
+    return $statement->execute([
+        ':student_id' => trim($studentId),
+        ':student_name' => trim($studentName),
+    ]);
 }
 
 /**
@@ -123,20 +150,23 @@ function get_all_tasks($pdo)
 }
 
 /**
- * Fetch one task by ID.
+ * Fetch one task by ID, including the current student name.
  */
 function get_task_by_id($pdo, $taskId)
 {
     $sql = "
         SELECT
-            task_id,
-            student_id,
-            category_id,
-            status_id,
-            task_name,
-            task_description
+            tasks.task_id,
+            tasks.student_id,
+            students.student_name,
+            tasks.category_id,
+            tasks.status_id,
+            tasks.task_name,
+            tasks.task_description
         FROM tasks
-        WHERE task_id = :task_id
+        JOIN students
+            ON tasks.student_id = students.student_id
+        WHERE tasks.task_id = :task_id
     ";
 
     $statement = $pdo->prepare($sql);
@@ -186,8 +216,16 @@ function validate_task_input($data)
 {
     $errors = [];
 
-    if (empty($data['student_id'])) {
-        $errors[] = 'Student is required.';
+    if (trim($data['student_id']) === '') {
+        $errors[] = 'Student ID is required.';
+    } elseif (strlen(trim($data['student_id'])) > 20) {
+        $errors[] = 'Student ID must be 20 characters or fewer.';
+    }
+
+    if (trim($data['student_name']) === '') {
+        $errors[] = 'Student name is required.';
+    } elseif (strlen(trim($data['student_name'])) > 100) {
+        $errors[] = 'Student name must be 100 characters or fewer.';
     }
 
     if (empty($data['category_id'])) {
@@ -212,6 +250,8 @@ function validate_task_input($data)
  */
 function create_task($pdo, $data)
 {
+    save_student($pdo, $data['student_id'], $data['student_name']);
+
     $sql = "
         INSERT INTO tasks (
             student_id,
@@ -231,7 +271,7 @@ function create_task($pdo, $data)
     $statement = $pdo->prepare($sql);
 
     return $statement->execute([
-        ':student_id' => $data['student_id'],
+        ':student_id' => trim($data['student_id']),
         ':category_id' => $data['category_id'],
         ':status_id' => $data['status_id'],
         ':task_name' => trim($data['task_name']),
@@ -244,6 +284,8 @@ function create_task($pdo, $data)
  */
 function update_task($pdo, $taskId, $data)
 {
+    save_student($pdo, $data['student_id'], $data['student_name']);
+
     $sql = "
         UPDATE tasks
         SET
@@ -258,7 +300,7 @@ function update_task($pdo, $taskId, $data)
     $statement = $pdo->prepare($sql);
 
     return $statement->execute([
-        ':student_id' => $data['student_id'],
+        ':student_id' => trim($data['student_id']),
         ':category_id' => $data['category_id'],
         ':status_id' => $data['status_id'],
         ':task_name' => trim($data['task_name']),

@@ -6,7 +6,6 @@ $pageTitle = 'Add Task - Student Task Manager';
 
 $pdo = get_db_connection();
 
-$students = get_all_students($pdo);
 $categories = get_all_categories($pdo);
 $statuses = get_all_statuses($pdo);
 
@@ -14,6 +13,7 @@ $errors = [];
 
 $formData = [
     'student_id' => '',
+    'student_name' => '',
     'category_id' => '',
     'status_id' => '',
     'task_name' => '',
@@ -23,6 +23,7 @@ $formData = [
 if (is_post_request()) {
     $formData = [
         'student_id' => $_POST['student_id'] ?? '',
+        'student_name' => $_POST['student_name'] ?? '',
         'category_id' => $_POST['category_id'] ?? '',
         'status_id' => $_POST['status_id'] ?? '',
         'task_name' => $_POST['task_name'] ?? '',
@@ -56,16 +57,27 @@ render_header($pageTitle, 'create');
 
     <form method="post" action="task_create.php">
         <div class="form-group">
-            <label for="student_id">Student</label>
-            <select id="student_id" name="student_id" required>
-                <option value="">-- Select student --</option>
-                <?php foreach ($students as $student): ?>
-                    <option value="<?= e($student['student_id']) ?>"
-                        <?= $formData['student_id'] === $student['student_id'] ? 'selected' : '' ?>>
-                        <?= e($student['student_id'] . ' - ' . $student['student_name']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+            <label for="student_id">Student ID</label>
+            <input
+                type="text"
+                id="student_id"
+                name="student_id"
+                maxlength="20"
+                value="<?= e($formData['student_id']) ?>"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="student_name">Student Name</label>
+            <input
+                type="text"
+                id="student_name"
+                name="student_name"
+                maxlength="100"
+                value="<?= e($formData['student_name']) ?>"
+                required
+            >
         </div>
 
         <div class="form-group">
