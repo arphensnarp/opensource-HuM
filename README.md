@@ -10,8 +10,6 @@ The target application is a **student task management system**.
 
 The system allows students to manage simple academic tasks such as assignments, reports, exercises, preparation work, and project tasks. Each task belongs to a student, has a category, and has a status that shows the current progress of the task.
 
-The application is designed for a small group project environment and is not intended to be a large production system.
-
 ## Runtime Environment
 
 The planned runtime environment is:
@@ -102,7 +100,5 @@ The planned web pages include:
 | `task_edit.php` | Edit an existing task |
 | `task_delete.php` | Delete a task |
 | `members.php` | Show group member introductions |
-| `about.php` | Describe the project purpose |
-| `db_test.php` | Temporary database connection test page during development |
 
 The final page list may be adjusted during implementation.
