@@ -199,10 +199,10 @@ Restart MariaDB:
 sudo systemctl restart mariadb
 ```
 
-Restart PHP-FPM if used:
+Restart PHP-FPM if used (check version):
 
 ```bash
-sudo systemctl restart php*-fpm
+sudo systemctl restart php8.4-fpm
 ```
 
 Check status:
@@ -228,25 +228,10 @@ Fix:
 2. Recreate the MariaDB user.
 3. Re-test PHP database connection.
 
-### `mb_strlen()` missing
-
-Example:
-
-```text
-Call to undefined function mb_strlen()
-```
-
-Fix:
+If PHP-FPM is used (check version):
 
 ```bash
-sudo apt install php-mbstring
-sudo systemctl restart lighttpd
-```
-
-If PHP-FPM is used:
-
-```bash
-sudo systemctl restart php*-fpm
+sudo systemctl restart php8.4-fpm
 ```
 
 ### Page returns server error
@@ -264,7 +249,4 @@ Check services:
 sudo systemctl status lighttpd
 sudo systemctl status mariadb
 ```
-
-Check the Lighttpd/PHP error log.
-
 
