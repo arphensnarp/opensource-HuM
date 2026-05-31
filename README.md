@@ -1,10 +1,10 @@
 # Student Task Manager - Group HuM
 
-## Project Overview
+Student Task Manager - Group HuM is a simple PHP and MariaDB web application for managing student study tasks.
 
-**Student Task Manager - Group HuM** is a simple web application designed for students to record, view, update, and manage their study-related tasks. The project is developed as a lightweight server-side web application for the Raspberry Pi Zero 2 W.
+This project was built as a class demonstration project for Raspberry Pi Zero 2 W. The goal is to show basic web application development using PHP, HTML, CSS, CRUD operations, and a relational database.
 
-## Target Application
+## Features
 
 The target application is a **student task management system**.
 
@@ -12,85 +12,69 @@ The system allows students to manage simple academic tasks such as assignments, 
 
 ## Runtime Environment
 
-The planned runtime environment is:
+| Item | Value |
+|---|---|
+| Hardware | Raspberry Pi Zero 2 W |
+| Operating System | DietPi |
+| Web Server | Lighttpd |
+| Server-side Language | PHP |
+| Database | MariaDB |
+| Demo Network | Link-local networking only |
 
-- HTTP Server: Lighttpd
-- Server-side Scripting: PHP
-- Database: MariaDB
-- Operating System: DietPi
-- Network Mode for Demo: Link-local networking only
+## File Summary
 
-## Concept
+| File | Purpose |
+|---|---|
+| `public/index.php` | Home page |
+| `public/tasks.php` | Displays task records |
+| `public/task_create.php` | Creates a new task |
+| `public/task_edit.php` | Edits an existing task |
+| `public/task_delete.php` | Deletes a task |
+| `public/members.php` | Displays group members |
+| `public/assets/style.css` | Basic page styling |
+| `app/config.php` | Database configuration |
+| `app/db.php` | PDO database connection |
+| `app/functions.php` | Helper functions and CRUD functions |
+| `app/layout.php` | Shared page layout |
+| `sql/schema.sql` | Database schema |
+| `sql/seed.sql` | Initial sample data |
 
-The first version of the application will manage the following information:
+## Database Design
 
-- Student name
-- Student ID
-- Task name
-- Task description
-- Task category
-- Task status
+The database has four main tables, which are also the entities:
 
-## Database Entities
+| Table | Purpose |
+|---|---|
+| `students` | Stores student/member records |
+| `categories` | Stores task category values |
+| `statuses` | Stores task status values |
+| `tasks` | Stores task records |
 
-### Student
+The `tasks` table references the other tables:
 
-Stores information about students or group members.
+```text
+tasks.student_id  -> students.student_id
+tasks.category_id -> categories.category_id
+tasks.status_id   -> statuses.status_id
+```
 
-Example attributes:
+### Relationships
 
-- student_id
-- student_name
+- One student can have many tasks.
+- One category can be used by many tasks.
+- One status can be used by many tasks.
+- Each task belongs to one student.
+- Each task belongs to one category.
+- Each task has one status.
 
-### Task
+### Relational Model
 
-Stores task records.
+```text
+students(student_id, student_name)
 
-Example attributes:
+categories(category_id, category_name)
 
-- task_id
-- student_id
-- category_id
-- status_id
-- task_name
-- task_description
-
-### Category
-
-Stores task categories.
-
-Example attributes:
-
-- category_id
-- category_name
-
-Example categories:
-
-- Assignment
-- Report
-- Project
-- Exam Preparation
-- Other
-
-### Status
-
-Stores task status values.
-
-Example attributes:
-
-- status_id
-- status_name
-
-Example statuses:
-
-- Not Started
-- In Progress
-- Completed
-- Cancelled
-
-## Planned Pages
-
-The planned web pages include:
+statuses(status_id, status_name)
 
 | Page | Purpose |
 |---|---|
