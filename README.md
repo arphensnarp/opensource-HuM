@@ -60,29 +60,8 @@ tasks.status_id   -> statuses.status_id
 
 ### Relationships
 
-- One student can have many tasks.
 - One category can be used by many tasks.
 - One status can be used by many tasks.
 - Each task belongs to one student.
 - Each task belongs to one category.
 - Each task has one status.
-
-### Relational Model
-
-```text
-students(student_id, student_name)
-
-categories(category_id, category_name)
-
-statuses(status_id, status_name)
-
-| Page | Purpose |
-|---|---|
-| `index.php` | Home page and task overview |
-| `tasks.php` | Display all tasks |
-| `task_create.php` | Add a new task |
-| `task_edit.php` | Edit an existing task |
-| `task_delete.php` | Delete a task |
-| `members.php` | Show group member introductions |
-
-The final page list may be adjusted during implementation.
