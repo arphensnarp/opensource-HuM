@@ -57,7 +57,6 @@ Expected modules include:
 PDO
 pdo_mysql
 mysqli
-mbstring
 ```
 
 ## 4. Clone the Repository
@@ -143,40 +142,7 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-## 8. Test Database User
-
-```bash
-mysql -u stm_user -p -D student_task_manager
-```
-
-Password:
-
-```text
-stm_password
-```
-
-Run:
-
-```sql
-SELECT COUNT(*) FROM tasks;
-EXIT;
-```
-
-## 9. Test PHP Database Connection
-
-From the project root:
-
-```bash
-php -r "require 'app/db.php'; \$pdo = get_db_connection(); echo 'Database connection OK' . PHP_EOL;"
-```
-
-Check task count:
-
-```bash
-php -r "require 'app/db.php'; \$pdo = get_db_connection(); echo 'Tasks: ' . \$pdo->query('SELECT COUNT(*) FROM tasks')->fetchColumn() . PHP_EOL;"
-```
-
-## 10. Configure Lighttpd Document Root
+## 8. Configure Lighttpd Document Root
 
 Lighttpd should serve the `public/` folder:
 
@@ -202,7 +168,7 @@ Restart Lighttpd after changing the configuration:
 sudo systemctl restart lighttpd
 ```
 
-## 11. Open the Application
+## 9. Open the Application
 
 Open in browser:
 
