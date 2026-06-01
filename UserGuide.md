@@ -46,7 +46,7 @@ The task table shows:
 Open the Add Task page.
 
 Fill in:
-
+- Student ID
 - Student
 - Category
 - Status
@@ -114,7 +114,7 @@ This page shows student/member data from the database.
 ## Form Rules
 
 Required fields:
-
+- Student ID
 - Student
 - Category
 - Status
