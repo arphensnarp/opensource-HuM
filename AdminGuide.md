@@ -10,35 +10,9 @@ app/     private PHP configuration and helper files
 sql/     database setup scripts
 ```
 
-The web server should point to:
-
-```text
-public/
-```
-
-The web server should not expose:
-
-```text
-app/
-```
-
-## Runtime Stack
-
-| Component | Technology |
-|---|---|
-| Hardware | Raspberry Pi Zero 2 W |
-| OS | DietPi |
-| Web Server | Lighttpd |
-| Language | PHP |
-| Database | MariaDB |
-
 ## Database Configuration
 
-Database settings are stored in:
-
-```text
-app/config.php
-```
+Database settings are stored in: app/config.php
 
 Default values:
 
@@ -52,28 +26,7 @@ define('DB_CHARSET', 'utf8mb4');
 
 If the MariaDB username, password, or database name changes, update this file.
 
-## Database Tables
-
-| Table | Purpose |
-|---|---|
-| `students` | Stores student/member records |
-| `categories` | Stores task categories |
-| `statuses` | Stores task status values |
-| `tasks` | Stores task records |
-
-## Foreign Key Relationships
-
-```text
-tasks.student_id  -> students.student_id
-tasks.category_id -> categories.category_id
-tasks.status_id   -> statuses.status_id
-```
-
-This keeps task records connected to valid students, categories, and statuses.
-
 ## Reset Database
-
-Warning: this deletes and recreates the database.
 
 From the project root:
 
